@@ -1,51 +1,62 @@
 var React = require('react');
 
-var TodoInput = React.createClass({
+class TodoInput extends React.Component {
+    static propTypes = {
+        event: React.PropTypes.func.isRequired
+    };
     render () {
         return (
             <input type="text" placeholder="do something?!" onKeyPress={this.props.event} />
         );
     }
-});
+}
 
-var TodoItem = React.createClass({
+class TodoItem extends React.Component {
+    static propTypes = {
+        event: React.PropTypes.func.isRequired,
+        item: React.PropTypes.string.isRequired
+    };
     render () {
         return (
-            <li value={this.props.item}>{this.props.item} <a onClick={this.props.event}>Remove</a></li>
+            <li>{this.props.item} <a value={this.props.item} onClick={this.props.event}>Remove</a></li>
         );
     }
-});
+}
 
-var TodoList = React.createClass({
-    getInitialState () {
-        return {
+class TodoList extends React.Component {
+    constructor() {
+        super();
+        this.addItem = this.addItem.bind(this);
+        this.removeItem = this.removeItem.bind(this);
+        this.state = {
             items: [],
             input: <TodoInput event={this.addItem} />
         };
-    },
+    }
     addItem (event) {
         if (event.key === 'Enter') {
             this.state.items.push(event.target.value);
             event.target.value = '';
             this.forceUpdate();
         }
-    },
+    }
     removeItem (event) {
-        this.state.items.pop(event.target.value);
+        var index = this.state.items.indexOf(event.target.attributes.value.value);
+        this.state.items.splice(index, 1);
         this.forceUpdate();
-    },
+    }
     render () {
         return (
             <div className="container">
                 {this.state.input}
                 <ul className="list">
                     {this.state.items.map((item) => (
-                        <TodoItem item={item} event={this.removeItem} />
+                        <TodoItem key={item} item={item} event={this.removeItem} />
                     ))}
                 </ul>
             </div>
         );
     }
-});
+}
 
 React.render(<TodoList />, document.getElementById('app'));
