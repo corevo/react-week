@@ -1,0 +1,20 @@
+{
+  "name": "day1todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-loader": "^5.3.2",
+    "http-server": "^0.8.0",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.10.1"
+  },
+  "dependencies": {
+    "react": "^0.13.3"
+  }
+}
