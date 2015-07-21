@@ -1,0 +1,9 @@
+.btn {
+    display: block;
+}
+
+.item {
+    border: 1px solid #616161;
+    margin-bottom: 20px;
+    display: block;
+}

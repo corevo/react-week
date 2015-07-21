@@ -3,22 +3,50 @@ var React = require('react');
 var ContentToggle = React.createClass({
     getInitialState () {
         return {
-            isOpen: false
+            isOpen: false,
+            drools: 0
         };
     },
     handleClick () {
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpen: !this.state.isOpen,
+            drools: (!this.state.isOpen) ? this.state.drools + 1 : this.state.drools
         });
     },
     render () {
         return (
-            <div className="test">
-                <div onClick={this.handleClick}>hello there</div>
-                { this.state.isOpen && <img height="200" src={this.props.image} /> }
+            <div className="item">
+                <a className="btn" onClick={this.handleClick}>{this.props.name} drools: {this.state.drools}</a>
+                { this.state.isOpen && <img height="100" src={this.props.image} /> }
             </div>
         );
     }
 });
 
-React.render(<ContentToggle image='http://californiatortilla.com/caltort/wp-content/uploads/2012/11/Steak-taco.jpg' />, document.getElementById('app'));
+var TacoList = React.createClass({
+    getInitialState () {
+        return {
+            tacos: [
+                {
+                    name: 'asada',
+                    image: 'http://californiatortilla.com/caltort/wp-content/uploads/2012/11/Steak-taco.jpg'
+                },
+                {
+                    name: 'vegetarian',
+                    image: 'http://cdn2.blisstree.com/wp-content/uploads/2011/04/veggie-tacos1.jpg'
+                }
+            ]
+        };
+    },
+    render () {
+        return (
+            <div className="list">
+                {this.state.tacos.map((taco) => (
+                    <ContentToggle name={taco.name} image={taco.image} />
+                ))}
+            </div>
+        );
+    }
+});
+
+React.render(<TacoList />, document.getElementById('app'));

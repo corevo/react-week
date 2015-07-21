@@ -12,7 +12,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /app\/.*\.js$/,
                 loader: 'babel-loader?stage=0'
             }
         ]
@@ -21,4 +21,4 @@ module.exports = {
         //new CommonsChunkPlugin('./public/common.js'),
         //new webpack.optimize.UglifyJsPlugin({})
     ]
-}
+};
