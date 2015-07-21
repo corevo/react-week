@@ -28,7 +28,7 @@ var TacoList = React.createClass({
         return {
             tacos: [
                 {
-                    name: 'asada',
+                    name: 'asado',
                     image: 'http://californiatortilla.com/caltort/wp-content/uploads/2012/11/Steak-taco.jpg'
                 },
                 {
