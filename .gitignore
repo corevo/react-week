@@ -1,6 +1,7 @@
 /*/node_modules
 /*/.jshintrc
 /*/public/bin
+*.log
 .DS_Store
 .AppleDouble
 .LSOverride
