@@ -12,7 +12,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /app\/.*\.js$/,
+                test: /app(\/|\\).*\.js$/,
                 loader: 'babel-loader?stage=0'
             }
         ]

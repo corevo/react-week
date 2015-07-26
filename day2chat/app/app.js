@@ -32,7 +32,7 @@ class MessageInput extends React.Component {
     send (event) {
         if (event.key === 'Enter') {
             this.props.sendMessage(event.target.value);
-            event.target.value = '';
+            event.target.reset();
         }
     }
     render () {
