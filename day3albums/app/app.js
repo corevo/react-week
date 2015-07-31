@@ -6,7 +6,7 @@ class App extends React.Component {
     render () {
         return (
             <div>
-                <h1>Hello World!</h1>
+                <h1>Album Showcase</h1>
                 <RouteHandler />
             </div>
         );
@@ -16,15 +16,15 @@ class App extends React.Component {
 class Home extends React.Component {
     render () {
         return (
-            <Link to="me">Me!!!</Link>
+            <div>Albums list :)</div>
         );
     }
 }
 
-class Me extends React.Component {
+class Album extends React.Component {
     render () {
         return (
-            <div>Tomer</div>
+            <div>Appetite for Destruction</div>
         );
     }
 }
@@ -32,7 +32,7 @@ class Me extends React.Component {
 var routes = (
     <Route handler={App}>
         <DefaultRoute handler={Home} />
-        <Route name="me" handler={Me} />
+        <Route name="album/:id" handler={Album} />
     </Route>
 );
 
