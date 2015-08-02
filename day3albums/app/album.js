@@ -3,12 +3,14 @@ var album = {},
         {
             name: 'Appetite for Destruction',
             artist: "Guns n' Roses",
-            image: 'img/afd.jpg'
+            image: 'img/afd.jpg',
+            songs: ['Welcome to the Jungle', "Sweet Child o' Mine", 'Paradise City']
         },
         {
             name: 'Crush',
             artist: 'Bon Jovi',
-            image: 'img/crush.png'
+            image: 'img/crush.png',
+            songs: ["It's My Life"]
         }
     ];
 
@@ -20,6 +22,8 @@ album.getAlbum = function(name) {
     var result = albums.filter(function( obj ) {
         return obj.name === name;
     });
+
+    return result[0];
 };
 
 module.exports = album;

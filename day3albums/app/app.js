@@ -62,9 +62,49 @@ class AlbumItem extends React.Component {
 }
 
 class Album extends React.Component {
+    componentWillMount () {
+        var { router } = this.context;
+        var name = router.getCurrentParams().name;
+        this.state = AlbumProvider.getAlbum(name);
+    }
     render () {
         return (
-            <h2>{this.props.name}</h2>
+            <div>
+                <h2>{this.state.name} - {this.state.artist}</h2>
+                <img src={this.state.image} height="200" />
+                <hr />
+                <Songs songs={this.props.songs} />
+            </div>
+        );
+    }
+}
+
+Album.contextTypes = {
+    router: React.PropTypes.func
+};
+
+class Songs extends React.Component {
+    static propTypes = {
+        songs: React.PropTypes.array.isRequired
+    }
+    render () {
+        return (
+            <ul>
+                {this.props.songs.map(song => (
+                    <Song song={song} />
+                ))}
+            </ul>
+        );
+    }
+}
+
+class Song extends React.Component {
+    static propTypes = {
+        song: React.PropTypes.string.isRequired
+    }
+    render () {
+        return (
+            <li>this.props.song</li>
         );
     }
 }
