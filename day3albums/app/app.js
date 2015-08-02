@@ -13,22 +13,24 @@ class App extends React.Component {
     render () {
         return (
             <div>
-                <h1>Album Showcase</h1>
-                <RouteHandler albums={this.state.albums} />
+                <Link to="/"><h1>Album Showcase</h1></Link>
+                <RouteHandler />
             </div>
         );
     }
 }
 
 class Home extends React.Component {
-    static propTypes = {
-        albums: React.PropTypes.array.isRequired
-    };
+    componentWillMount () {
+        this.setState({
+            albums: AlbumProvider.getAllAlbums()
+        });
+    }
     render () {
         return (
             <div>
                 <ul>
-                    {this.props.albums.map((album) => (
+                    {this.state.albums.map((album) => (
                         <AlbumItem key={album.name} albumName={album.name} artist={album.artist} image={album.image} />
                     ))}
                 </ul>
@@ -36,6 +38,10 @@ class Home extends React.Component {
         );
     }
 }
+
+Home.contextTypes = {
+    router: React.PropTypes.func
+};
 
 class AlbumItem extends React.Component {
     static propTypes = {
@@ -62,10 +68,21 @@ class AlbumItem extends React.Component {
 }
 
 class Album extends React.Component {
+    constructor() {
+        super();
+        this.addSong = this.addSong.bind(this);
+    }
     componentWillMount () {
         var { router } = this.context;
         var name = router.getCurrentParams().name;
         this.state = AlbumProvider.getAlbum(name);
+    }
+    addSong (event) {
+        if (event.key === 'Enter') {
+            this.state.songs.push(event.target.value);
+            event.target.value = '';
+            this.forceUpdate();
+        }
     }
     render () {
         return (
@@ -73,7 +90,7 @@ class Album extends React.Component {
                 <h2>{this.state.name} - {this.state.artist}</h2>
                 <img src={this.state.image} height="200" />
                 <hr />
-                <Songs songs={this.props.songs} />
+                <Songs songs={this.state.songs} addSong={this.addSong} />
             </div>
         );
     }
@@ -89,11 +106,14 @@ class Songs extends React.Component {
     }
     render () {
         return (
-            <ul>
-                {this.props.songs.map(song => (
-                    <Song song={song} />
-                ))}
-            </ul>
+            <div>
+                <ul>
+                    {this.props.songs.map(song => (
+                        <Song key={song} song={song} />
+                    ))}
+                </ul>
+                <AddSong event={this.props.addSong} />
+            </div>
         );
     }
 }
@@ -104,8 +124,17 @@ class Song extends React.Component {
     }
     render () {
         return (
-            <li>this.props.song</li>
+            <li>{this.props.song}</li>
         );
+    }
+}
+
+class AddSong extends React.Component {
+    static propTypes = {
+        event: React.PropTypes.func.isRequired
+    }
+    render () {
+        return (<input type="text" placeholder="Song Name" onKeyPress={this.props.event} />);
     }
 }
 
