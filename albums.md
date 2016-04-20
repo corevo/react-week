@@ -5,5 +5,5 @@
 * I can **add** and **remove** songs from the album
 * If I go to a different album and return to the album from before, my **changes will be kept**
 
-*Note* changes doesn't need to be kept over refreshes
+*Note* changes doesn't need to be kept over refreshes  
 *Your stack:* `react react-dom react-router` and anything else you want!!!!
